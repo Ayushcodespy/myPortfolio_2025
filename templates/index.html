@@ -1,0 +1,831 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush Patel | Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Fira+Code&family=Abandon&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/index.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-icons-font@v7/font/simple-icons.min.css">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=support_agent" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{% static 'styles/swiper-bundle.min.css' %}">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> -->
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+    </style>
+</head>
+
+<body>
+    <!-- ======================= HERO SECTION ========================= -->
+    <section class="hero">
+        <button id="theme-switch" onclick="toggleTheme()">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+                <path
+                    d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+                <path
+                    d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+            </svg>
+        </button>
+
+        <!-- Chatbot Button -->
+        <button class="chat-bot" onclick="toggleChat()">
+            <img src="{% static 'images/social_icons/chatbot.png' %}" alt="Chatbot">
+        </button>
+
+        <div class="header-container">
+            <div class="header-left">
+                <h1>Software Developer</h1>
+                <h2>Ayush Patel</h2>
+            </div>
+            <div class="header-right">
+                <div class="ring-wrapper"></div>
+                <img src="{% static 'images/ayush.png' %}" alt="Ayush Patel">
+            </div>
+        </div>
+
+        <div class="intro-section">
+            <div class="btn-container">
+                <a class="light-btn" href="#contact">Got a Project?</a>
+                <a class="dark-btn" href="{% static 'certificates/Ayush Patel Resume.pdf' %}" target="_blank">Download Resume</a>
+            </div>
+            <div class="intro">
+                <span id="typewriter-text"></span>
+            </div>
+        </div>
+    </section>
+    <!-- ======================= HERO SECTION ENDS========================= -->
+
+    <!-- ======================= CHATBOT WINDOW ========================= -->
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <h3>My Personal Assistant</h3>
+            <button class="close-btn" onclick="toggleChat()">✕</button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-container">
+                <div class="message bot">👋 Hello! How can I help you today?</div>
+                <div class="message user">I want to know about your skills.</div>
+                <div class="message bot">Sure! You can check the skills section below 👇</div>
+            </div>
+            <!-- Comment to remove -->
+            This section is under development. Stay tuned!
+
+        </div>
+        <div class="chat-footer">
+            <input type="text" placeholder="Type a message..." disabled />
+            <button disabled>Send</button>
+        </div>
+    </div>
+    <!-- ======================= CHATBOT WINDOW ENDS========================= -->
+
+
+    <!-- ======================= ABOUT SECTION ========================= -->
+
+    <section class="about" id="about">
+        <div class="services">
+            <div class="services-left">
+                <div class="service-item"><i class="fas fa-code"></i> Website Development</div>
+                <div class="service-item"><i class="fas fa-mobile-alt"></i> App Development</div>
+                <div class="service-item"><i class="fas fa-server"></i> Website Hosting</div>
+            </div>
+            <div class="services-right ">
+                <div class="social">
+                    <a href="https://github.com/Ayushcodespy" target="_blank"><i data-lucide="github"></i></a>
+                    <a href="https://www.linkedin.com/in/ayush-patel-581b8b274/" target="_blank"><i
+                            data-lucide="linkedin"></i></a>
+                    <a href="mailto:ayush.jnv54@gmail.com"><i data-lucide="mail"></i></a>
+                    <a href="https://www.instagram.com/ayush_singh6038/" target="_blank"><i
+                            data-lucide="instagram"></i></a>
+                    <a href="https://x.com/Ayushcodespy" target="_blank"><i data-lucide="x"></i></a>
+                </div>
+
+                <div class="about-me-section">
+                    <h2>About me</h2>
+                    <p>I'm <span class="highlight">Ayush Patel</span> — a self-motivated B.Tech student and passionate
+                        <span class="highlight">full-stack developer</span>. My journey
+                        into the digital world began with photography, where I discovered the joy of creating visuals
+                        from
+                        scratch. That creative spark led me into software development, where I now channel my skills
+                        into
+                        designing meaningful and user-friendly applications.
+                        <br><br>I specialize in building modern web and mobile solutions using <span
+                            class="highlight">Django</span>, <span class="highlight">Flask</span>, and <span
+                            class="highlight">Flutter</span>.
+                        I’ve built several impactful platforms like ARYA-Z-TECH, and I constantly strive to merge
+                        creativity
+                        with functionality. My goal is to deliver clean, scalable, and intuitive digital experiences
+                        while
+                        always staying curious and eager to learn.
+                    </p>
+                    <div class="service-stats">
+                        <div class="stat"><span>8+</span><br>Completed Projects</div>
+                        <div class="stat"><span>98%</span><br>Client Satisfaction</div>
+                        <div class="stat"><span>3+</span><br>Years of Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ======================= ABOUT SECTION ENDS ========================= -->
+
+
+
+    <!-- ======================= SKILLS SECTION ========================= -->
+
+    <section class="skill-categories">
+        <h2>Technical Skills</h2>
+        <div class="category-tabs">
+            <div class="category-tab active" data-tab="languages">Programming Languages</div>
+            <div class="category-tab" data-tab="frontend">Frontend</div>
+            <div class="category-tab" data-tab="backend">Backend</div>
+            <div class="category-tab" data-tab="database">Database</div>
+            <div class="category-tab" data-tab="tools">Tools</div>
+            <div class="category-tab" data-tab="os">OS/Environment</div>
+        </div>
+
+        <div id="languages" class="skill-grid active">
+            <div class="skill-card"
+                data-detail=" I use Python to build backend systems, automate tasks, and even experiment with AI tools.">
+                <i class="fab fa-python"></i><span>Python</span>
+            </div>
+            <div class="skill-card" data-detail="My journey into programming started with C."><i
+                    class="si si-c"></i><span>C</span></div>
+            <div class="skill-card"
+                data-detail="I use C++ when I need more control and speed, especially in system-level logic."><i
+                    class="si si-cplusplus"></i><span>C++</span></div>
+            <div class="skill-card"
+                data-detail="I use it with Flutter to build fast and beautiful cross-platform mobile apps."><i
+                    class="si si-dart"></i><span>Dart</span></div>
+            <div class="skill-card"
+                data-detail="JavaScript helps me bring websites to life. It controls interactivity and browser-based logic.">
+                <i class="fab fa-js"></i><span>Javascript</span>
+            </div>
+        </div>
+
+        <div id="frontend" class="skill-grid">
+            <div class="skill-card"
+                data-detail="HTML is the skeleton I use to lay it all out cleanly and semantically."><i
+                    class="fab fa-html5"></i><span>HTML5</span></div>
+            <div class="skill-card" data-detail="CSS lets me style and design web pages just the way I imagine."><i
+                    class="fab fa-css3-alt"></i><span>CSS3</span></div>
+            <div class="skill-card"
+                data-detail="JavaScript lets me add all the interactive parts — clicks, sliders, popups, etc."><i
+                    class="fab fa-js"></i><span>JavaScript</span></div>
+            <div class="skill-card"
+                data-detail="Bootstrap for quickly designing mobile-friendly layouts without reinventing the wheel."><i
+                    class="fab fa-bootstrap"></i><span>Bootstrap</span></div>
+            <div class="skill-card"
+                data-detail="I design mobile apps with smooth UIs, transitions, and animations — all from one codebase.">
+                <i class="si si-flutter"></i><span>Flutter</span>
+            </div>
+        </div>
+
+        <div id="backend" class="skill-grid">
+            <div class="skill-card"
+                data-detail="My go-to for building powerful, secure, and scalable web apps with clean admin panels."><i
+                    class="si si-django"></i><span>Django</span></div>
+            <div class="skill-card"
+                data-detail="When I need something lightweight or custom, I use Flask to build quick backend services.">
+                <i class="si si-flask"></i><span>Flask</span>
+            </div>
+            <div class="skill-card"
+                data-detail="I’ve explored .NET for building Windows apps and learning enterprise-grade backend development.">
+                <i class="si si-dotnet"></i><span>.NET</span>
+            </div>
+        </div>
+
+        <div id="database" class="skill-grid">
+            <div class="skill-card"
+                data-detail="I use MySQL in most of my projects for structured, relational data and easy integration with Django and Flask.">
+                <i class="si si-mysql"></i><span>MySQL</span>
+            </div>
+            <div class="skill-card"
+                data-detail="For smaller apps or mobile development, SQLite is lightweight and easy to set up — no server needed.">
+                <i class="si si-sqlite"></i><span>SQLight</span>
+            </div>
+            <div class="skill-card"
+                data-detail="For advanced queries and bigger apps, PostgreSQL gives me better performance and control.">
+                <i class="si si-postgresql"></i><span>PostgreSQL</span>
+            </div>
+            <div class="skill-card"
+                data-detail="I use Firebase when I need real-time updates and easy auth for mobile/web apps without setting up a full backend.">
+                <i class="si si-firebase"></i><span>Firebase</span>
+            </div>
+        </div>
+
+        <div id="tools" class="skill-grid">
+            <div class="skill-card"
+                data-detail="Git helps me keep track of my code changes, collaborate with others, and avoid losing any progress.">
+                <i class="fab fa-git-alt"></i><span>Git</span>
+            </div>
+            <div class="skill-card"
+                data-detail="I use Android Studio when building or testing mobile apps with Flutter or native Android.">
+                <i class="si si-androidstudio"></i><span>Android Studio</span>
+            </div>
+            <div class="skill-card"
+                data-detail="My main code editor — lightweight, fast, and customizable for anything from Python to web dev.">
+                <i class="si si-visualstudiocode"></i><span>VS Code</span>
+            </div>
+            <div class="skill-card"
+                data-detail="For Python-heavy projects, especially Django and Flask, PyCharm makes development cleaner and faster.">
+                <i class="si si-pycharm"></i><span>PyCharm</span>
+            </div>
+            <div class="skill-card"
+                data-detail=" smarter version of VS Code I use when working with AI-based code suggestions and faster development.">
+                <i class="si si-replit"></i><span>Cursor</span>
+            </div>
+            <div class="skill-card"
+                data-detail="GitHub is my go-to platform for hosting code, collaborating on projects, managing issues, and contributing to open-source.">
+                <i class="fab fa-github"></i><span>GitHub</span>
+            </div>
+        </div>
+
+        <div id="os" class="skill-grid">
+            <div class="skill-card"
+                data-detail="My primary OS for development, especially for tools like VS Code, Android Studio, and .NET.">
+                <i class="fab fa-windows"></i><span>Windows</span>
+            </div>
+            <div class="skill-card"
+                data-detail="I use Linux (and WSL) when working with servers, deploying apps, or doing terminal-based dev tasks.">
+                <i class="fab fa-linux"></i><span>Linux</span>
+            </div>
+        </div>
+    </section>
+    <!-- ======================= SKILLS SECTION ENDS ========================= -->
+
+    <!-- ======================= EDUCATION SECTION ========================= -->
+
+    <section class="education" id="education">
+        <h2 class="heading">Education</h2>
+
+        <div class="timeline-items">
+
+            <!-- Timeline Item 0: Early Schooling -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">UKG - Class 5 (Till 2015)</div>
+                <div class="timeline-content">
+                    <h3>Primary Schooling</h3>
+                    <p>
+                        Started early education from <span class="highlight">Holy Child Convent High School</span> from
+                        UKG to Class 2.
+                        Completed Class 3 from <span class="highlight">Rastra Pita Mahatma Gandhi Bal Vidyalaya</span>.
+                        Then attended Class 4 and 5 at a <strong>Government School in my village (Madhya
+                            Pradesh)</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timeline Item 1 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2015 – 2019</div>
+                <div class="timeline-content">
+                    <h3>Schooling (Class 6th to 9th)</h3>
+                    <p>Completed foundational education from <span class="highlight">Jawahar Navodaya Vidyalaya</span>,
+                        focusing on
+                        core subjects and overall development.</p>
+                </div>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2020</div>
+                <div class="timeline-content">
+                    <h3>Class 10th (CBSE)</h3>
+                    <p>Passed Class 10th from <span class="highlight">Jawahar Navodaya Vidyalaya</span> with a strong
+                        academic record
+                        and participation in co-curricular activities.</p>
+                </div>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2022</div>
+                <div class="timeline-content">
+                    <h3>Class 12th (PCM + Computer Science)</h3>
+                    <p>Completed Higher Secondary Education from <span class="highlight">Jawahar Navodaya
+                            Vidyalaya</span> with major
+                        subjects Physics, Chemistry, Mathematics, and Computer Science.</p>
+                </div>
+            </div>
+
+            <!-- Timeline Item 4 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2022 – 2026</div>
+                <div class="timeline-content">
+                    <h3>B.Tech in Computer Science & Engineering</h3>
+                    <p>Currently pursuing undergraduate degree at <span class="highlight">AKS University</span>,
+                        focusing on software
+                        engineering, data structures, and emerging technologies.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- ======================= EDUCATION SECTION ENDS========================= -->
+
+    <!-- ======================= CERTIFICATION SECTION ========================= -->
+    <section class="certifications" id="certifications">
+        <h2>Certifications</h2>
+        <div class="certifications-grid">
+            <div class="cert-card">
+                <i class="fas fa-certificate"></i>
+                <h3>Junior Software Developer</h3>
+                <span>Skill India · November 2024</span>
+                <a class="view-btn" href="{% static 'certificates/Junior Software Developer By Skill India.jpg' %}"
+                    target="_blank">View</a>
+            </div>
+            <div class="cert-card">
+                <i class="fas fa-certificate"></i>
+                <h3>Data Science and AI</h3>
+                <span>Code With Harry · November 2025</span>
+                <a class="view-btn" href="" target="_blank" alt="Certificate in progress">View</a>
+            </div>
+            <div class="cert-card">
+                <i class="fas fa-certificate"></i>
+                <h3>A Novel Electromagnetic Pulse Repeater Design</h3>
+                <span>IC-ASTSDGs · March 2024</span>
+                <a class="view-btn" href="{% static 'certificates/Electromagnetic Pulse Repeater.pdf' %}" target="_blank">View</a>
+            </div>
+            <div class="cert-card">
+                <i class="fas fa-certificate"></i>
+                <h3>Data Science & Analytics</h3>
+                <span>HP Foundation · October 2024</span>
+                <a class="view-btn" href="{% static 'certificates/Data Analytics by HP.pdf' %}" target="_blank">View</a>
+            </div>
+            <div class="cert-card">
+                <i class="fas fa-certificate"></i>
+                <h3>Code Cubicle Hackathon</h3>
+                <span>Geek Room · September 2024</span>
+                <a class="view-btn" href="{% static 'certificates/CubicCode.pdf' %}" target="_blank">View</a>
+            </div>
+            <div class="cert-card">
+                <i class="fa fa-certificate"></i>
+                <h3>ThrillX 1.0 Hackathon</h3>
+                <span>AKS University · September 2024</span>
+                <a class="view-btn" href="{% static 'certificates/Thrill-X By AKS.pdf' %}" target="_blank">View</a>
+            </div>
+        </div>
+    </section>
+    <!-- ======================= CERTIFICATION SECTION ENDS ========================= -->
+
+    <!-- ======================= GITHUB REPOSITORIES SECTION ========================= -->
+    <section class="github-repos" id="github-repos">
+        <h2>My Popular GitHub Repositories</h2>
+        <div class="repo-grid" id="repo-grid">
+            <!-- Repositories will be injected here -->
+        </div>
+    </section>
+    <!-- ======================= GITHUB REPOSITORIES SECTION ENDS ========================= -->
+
+
+    <!-- ======================= FUN-FACTS SECTION ========================= -->
+
+    <section class="fun-facts" id="fun-facts">
+        <h2 class="section-heading">Fun Facts About Me</h2>
+        <div class="facts-grid">
+
+            <div class="fact-card">
+                <div class="fact-icon">📚</div>
+                <h3>Story Lover</h3>
+                <p>I love reading novels and diving deep into fictional worlds.</p>
+            </div>
+            <div class="fact-card">
+                <div class="fact-icon">🎤</div>
+                <h3>Singing Enthusiast</h3>
+                <p>I enjoy singing and music adds rhythm to my creativity.</p>
+            </div>
+            <div class="fact-card">
+                <div class="fact-icon">🎧</div>
+                <h3>Music Buff</h3>
+                <p>Lo-fi beats make my coding sessions better.</p>
+            </div>
+            <div class="fact-card">
+                <div class="fact-icon">🚴‍♂️</div>
+                <h3>Love Cycling</h3>
+                <p>Long solo rides help me clear my mind and stay fit.</p>
+            </div>
+            <div class="fact-card">
+                <div class="fact-icon">🧠</div>
+                <h3>Self Learner</h3>
+                <p>I built everything I know project by project, online.</p>
+            </div>
+        </div>
+    </section>
+    <!-- ======================= FUN-FACTS SECTION ========================= -->
+
+    <!-- ======================= PROJECTS SECTION ========================= -->
+
+    <section class="projects" id="projects">
+        <h2 class="heading">My Popular Projects</h2>
+        <div class="swiper mySwiper" style="max-width: 1200px; margin: auto;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="project-card">
+                        <a href="https://aryaztech.vercel.app/" target="_blank">
+                            <img src="{% static 'images/projects/arya-z-tech.png' %}" alt="Project Screenshot">
+                        </a>
+                        <div class="project-info">
+                            <h3>ARYA-Z-TECH</h3>
+                            <p>A business website offering website development and deployment services, built using
+                                HTML, CSS, JS, Flask, and hosted on Vercel.</p>
+                            <a href="/project.html" class="view-btn"> <i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="project-card">
+                        <a href="https://ayushpatelportfolio.netlify.app/" target="_blank">
+                            <img src="{% static 'images/projects/portfolio.png' %}" alt="Project Screenshot">
+                        </a>
+                        <div class="project-info">
+                            <h3>Old Portfolio</h3>
+                            <p>This was my earlier portfolio showcasing my journey, skills, and work using simple HTML,
+                                CSS, and Bootstrap layout.</p>
+                            <a href="" class="view-btn"> <i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="project-card">
+                        <a href="https://example.com" target="_blank">
+                            <img src="{% static 'images/projects/school.png' %}" alt="Project Screenshot">
+                        </a>
+                        <div class="project-info">
+                            <h3>School Management System</h3>
+                            <p>A complete Django-based school system to manage students, teachers, attendance,
+                                admissions, fees, and more.</p>
+                            <a href="" class="view-btn"> <i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="project-card">
+                        <a href="https://example.com" target="_blank">
+                            <img src="{% static 'images/projects/new-portfolio.png' %}" alt="Project Screenshot">
+                        </a>
+                        <div class="project-info">
+                            <h3>New Portfolio</h3>
+                            <p>This portfolio you're viewing now, crafted with advanced UI, modern effects, Swiper
+                                slider, and highly optimized sections.</p>
+                            <a href="" class="view-btn"> <i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </section>
+    <!-- ======================= PROJECTS SECTION ENDS ========================= -->
+
+    <!-- ========================= Testimonial Section============================= -->
+
+    <section class="testimonials">
+        <h2 class="section-heading">Client's Feedback About Me</h2>
+        <p class="section-subheading">A small, engaging line about the testimonials.</p>
+
+        <div class="testimonial-container">
+
+            <div class="contents-wraper">
+
+                <section class="testRow">
+
+                    <div class="testItem active">
+                        <img src="{% static 'images/ayush.png' %}">
+                        <h3>Jane Doe</h3>
+                        <h4>San Francisco, USA</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <div class="testItem">
+                        <img src="{% static 'images/ayush.png' %}">
+                        <h3>Jane Doe</h3>
+                        <h4>San Francisco, USA</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <div class="testItem">
+                        <img src="{% static 'images/ayush.png' %}">
+                        <h3>Jane Doe</h3>
+                        <h4>San Francisco, USA</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <div class="testItem">
+                        <img src="{% static 'images/ayush.png' %}">
+                        <h3>Jane Doe</h3>
+                        <h4>San Francisco, USA</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <div class="testItem">
+                        <img src="{% static 'images/ayush.png' %}">
+                        <h3>Jane Doe</h3>
+                        <h4>San Francisco, USA</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                </section>
+
+                <section class="indicators">
+                    <div class="dot active" attr='0' onclick="switchTest(this)"></div>
+                    <div class="dot" attr='1' onclick="switchTest(this)"></div>
+                    <div class="dot" attr='2' onclick="switchTest(this)"></div>
+                    <div class="dot" attr='3' onclick="switchTest(this)"></div>
+                    <div class="dot" attr='4' onclick="switchTest(this)"></div>
+                </section>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- ========================= Testimonial Section Ends ============================= -->
+
+    <!-- ========================= Contact Section ============================= -->
+    <section class="contact" id="contact">
+        <h2 class="section-heading">Contact Me</h2>
+        <!-- comment to remove -->
+        This section is under development. Stay tuned! <br><br>
+
+        <div class="contact-container">
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="6" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p><strong>Email:</strong> ayush@example.com</p>
+                <p><strong>Phone:</strong> +91 6307425700</p>
+                <p><strong>Location:</strong> Madhya Pradesh, India</p>
+            </div>
+        </div>
+    </section>
+    <!-- ========================= Contact Section Ends ============================= -->
+
+    <footer class="custom-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Ayush Patel. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://github.com/Ayushcodespy" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/ayushcodespy" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:ayush.jnv54@gmail.com.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+    </script>
+
+    <script>
+        function toggleChat() {
+            document.getElementById("chat-window").classList.toggle("active");
+        }
+    </script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+
+    <script>
+        const textElement = document.getElementById("typewriter-text");
+        const lines = [
+            "Hi, I'm a certified Junior Software Developer",
+            "Full Stack Developer | Tech Explorer",
+            "A certified Data Scientist",
+            "I build with Django, Flask, Flutter & more.",
+            "Let's create something amazing together!"
+        ];
+
+        let lineIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentLine = lines[lineIndex];
+            const visibleText = currentLine.substring(0, charIndex);
+            textElement.innerHTML = visibleText + '<span class="cursor">|</span>';
+
+            if (!isDeleting && charIndex < currentLine.length) {
+                charIndex++;
+                setTimeout(typeEffect, 60);
+            } else if (isDeleting && charIndex > 0) {
+                charIndex--;
+                setTimeout(typeEffect, 30);
+            } else {
+                isDeleting = !isDeleting;
+                if (!isDeleting) {
+                    lineIndex = (lineIndex + 1) % lines.length;
+                }
+                setTimeout(typeEffect, 1000);
+            }
+        }
+
+        typeEffect();
+    </script>
+
+    <script>
+        const tabs = document.querySelectorAll(".category-tab");
+        const grids = document.querySelectorAll(".skill-grid");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+
+                grids.forEach(grid => {
+                    grid.classList.remove("active");
+                });
+                document.getElementById(tab.dataset.tab).classList.add("active");
+            });
+        });
+    </script>
+
+    <script>
+        async function loadRepos() {
+            const username = "Ayushcodespy";
+            const res = await fetch(`https://pinned.berrysauce.dev/get/${username}?_=${Date.now()}`);
+            const repos = await res.json();
+            const container = document.getElementById("repo-grid");
+
+            repos.forEach(repo => {
+                const repoLink = `https://github.com/${repo.author}/${repo.name}`;
+
+                const card = document.createElement("div");
+                card.className = "repo-card";
+                card.innerHTML = `
+            <h3>${repo.name}</h3>
+            <p>${repo.description || "No description provided."}</p>
+            <div class="repo-meta">
+                <span>🌐 ${repo.language || "N/A"}</span>
+            </div>
+            <a class="view-btn" href="${repoLink}" target="_blank">View</a>
+        `;
+                container.appendChild(card);
+            });
+        }
+
+        loadRepos();
+
+    </script>
+
+    <!-- To disable the right click -->
+    <!-- <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script> -->
+
+    <!-- Developer Tools ke Shortcuts Disable karna (F12, Ctrl+Shift+I, etc.) -->
+    <script>
+        document.onkeydown = function (e) {
+            if (e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && e.key === "I") ||
+                (e.ctrlKey && e.shiftKey && e.key === "J") ||
+                (e.ctrlKey && e.key === "U")) {
+                return false;
+            }
+        };
+    </script>
+
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            centeredSlides: false,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 40
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 50
+                }
+            },
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        // Access the testimonials
+        let testSlide = document.querySelectorAll('.testItem');
+        // Access the indicators
+        let dots = document.querySelectorAll('.dot');
+
+        var counter = 0;
+
+        // Add click event to the indicators
+        function switchTest(currentTest) {
+            currentTest.classList.add('active');
+            var testId = currentTest.getAttribute('attr');
+            if (testId > counter) {
+                testSlide[counter].style.animation = 'next1 0.5s ease-in forwards';
+                counter = testId;
+                testSlide[counter].style.animation = 'next2 0.5s ease-in forwards';
+            }
+            else if (testId == counter) { return; }
+            else {
+                testSlide[counter].style.animation = 'prev1 0.5s ease-in forwards';
+                counter = testId;
+                testSlide[counter].style.animation = 'prev2 0.5s ease-in forwards';
+            }
+            indicators();
+        }
+
+        // Add and remove active class from the indicators
+        function indicators() {
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(' active', '');
+            }
+            dots[counter].className += ' active';
+        }
+
+        // Code for auto sliding
+        function slideNext() {
+            testSlide[counter].style.animation = 'next1 0.5s ease-in forwards';
+            if (counter >= testSlide.length - 1) {
+                counter = 0;
+            }
+            else {
+                counter++;
+            }
+            testSlide[counter].style.animation = 'next2 0.5s ease-in forwards';
+            indicators();
+        }
+        function autoSliding() {
+            deleteInterval = setInterval(timer, 3000);
+            function timer() {
+                slideNext();
+                indicators();
+            }
+        }
+        autoSliding();
+
+        // Stop auto sliding when mouse is over the indicators
+        const container = document.querySelector('.indicators');
+        container.addEventListener('mouseover', pause);
+        function pause() {
+            clearInterval(deleteInterval);
+        }
+
+        // Resume sliding when mouse is out of the indicators
+        container.addEventListener('mouseout', autoSliding);
+
+    </script>
+
+
+</body>
+
+</html>
