@@ -131,6 +131,7 @@ body {
     top: 20px;
     right: 20px;
     cursor: pointer;
+    z-index: 1000;
 }
 
 #theme-switch svg {
@@ -159,9 +160,10 @@ body {
     color: var(--text-color);
     cursor: pointer;
     /* border-radius: 50%; */
-    height: 60px;
-    width: 60px;
+    /* height: 60px; */
+    /* width: 60px; */
     transition: 0.3s ease-in-out;
+    z-index: 1000;
 }
 
 .chat-bot img {
@@ -760,6 +762,7 @@ body {
     right: 20px;
     font-size: 24px;
     color: var(--text-color);
+    /* z-index: 1; */
 }
 
 
@@ -1429,6 +1432,16 @@ body {
         line-height: 20px;
     }
 
+     #theme-switch {
+        top: 8px;
+        right: 8px;
+    }
+    
+    .chat-bot {
+        bottom: 5px;
+        right: 5px;
+    }
+
 }
 
 @media (max-width: 400px) {
@@ -1455,6 +1468,23 @@ body {
     .social a {
         height: 50px;
         width: 50px;
+    }
+
+    #theme-switch {
+        top: 5px;
+        right: 5px;
+        height: 35px;
+        width: 35px;
+    }
+    .theme-icon {
+        height: 20px;
+    }
+    .chat-bot {
+        bottom: 0px;
+        right: 0px;
+    }
+    .chat-bot img {
+        height: 60px;
     }
 }
 
