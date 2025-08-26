@@ -117,12 +117,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_DIRS = [os.path.join(BASE_DIR, 'myPortfolio_2025/static')] 
+# Where your static files are during development
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # e.g., /static/css/style.css
+]
+
+# Where Django will collect static files for production (e.g. Vercel)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    BASE_DIR,"static"
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
