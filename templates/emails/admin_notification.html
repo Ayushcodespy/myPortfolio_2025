@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Purchase</title>
+    <style>
+        body { margin: 0; padding: 0; background: #f5f7fb; font-family: Arial, sans-serif; }
+        .wrapper { width: 100%; padding: 24px; }
+        .card { max-width: 640px; margin: 0 auto; background: #ffffff; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+        .header { background: #111827; color: #ffffff; padding: 22px 28px; text-align: center; }
+        .header img { max-height: 48px; display: block; margin: 0 auto 8px; }
+        .content { padding: 28px; color: #222; line-height: 1.6; }
+        .meta { background: #f3f4f6; padding: 12px 16px; border-radius: 10px; font-size: 14px; }
+        .footer { padding: 18px 28px 26px; color: #6b7280; font-size: 13px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="card">
+            <div class="header">
+                {% if logo_url %}
+                <img src="{{ logo_url }}" alt="{{ sender_name }}">
+                {% endif %}
+                <strong>{{ sender_name }}</strong>
+                <div>New Purchase Notification</div>
+            </div>
+            <div class="content">
+                <p><strong>Project:</strong> {{ project_title }}</p>
+                <div class="meta">
+                    <div><strong>Buyer Email:</strong> {{ buyer_email }}</div>
+                    <div><strong>Payment ID:</strong> {{ payment_id }}</div>
+                    <div><strong>Order ID:</strong> {{ order_id }}</div>
+                    <div><strong>Status:</strong> {{ status_note }}</div>
+                </div>
+                {% if site_url %}
+                <p>Site: {{ site_url }}</p>
+                {% endif %}
+            </div>
+            <div class="footer">
+                {{ sender_name }}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

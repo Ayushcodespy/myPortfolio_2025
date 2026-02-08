@@ -1,0 +1,98 @@
+[
+  {
+    "keywords": ["skills", "tech", "stack", "technology", "tools"],
+    "reply": "Sure! My Technical Skills section has the full stack I use. Want a quick summary?"
+  },
+  {
+    "keywords": ["projects", "work", "portfolio", "builds"],
+    "reply": "Absolutely. The Projects section shows my recent work with screenshots and links."
+  },
+  {
+    "keywords": ["resume", "cv"],
+    "reply": "You can download my resume from the hero section. If you want a tailored version, tell me the role."
+  },
+  {
+    "keywords": ["contact", "hire", "email", "reach", "message"],
+    "reply": "The Contact section at the bottom is the best way to reach me. I usually respond the same day."
+  },
+  {
+    "keywords": ["education", "college", "degree", "university"],
+    "reply": "My education timeline is in the Education section. I am currently pursuing B.Tech in CSE."
+  },
+  {
+    "keywords": ["certification", "certifications", "certificate"],
+    "reply": "You can view my Certifications section for recent certificates and badges."
+  },
+  {
+    "keywords": ["github", "repo", "repositories", "code"],
+    "reply": "My GitHub repos are listed in the Repos section. Want links to my top 3?"
+  },
+  {
+    "keywords": ["testimonials", "feedback", "clients", "reviews"],
+    "reply": "Check the Testimonials section for client feedback. I keep it short and honest."
+  },
+  {
+    "keywords": ["fun", "facts", "hobbies", "interests"],
+    "reply": "Fun Facts about me are in the Fun Facts section. I love cycling and lo‑fi music."
+  },
+  {
+    "keywords": ["services", "freelance", "offer", "work with"],
+    "reply": "I offer web and app development plus hosting. The About section has the overview."
+  },
+  {
+    "keywords": ["location", "based", "where"],
+    "reply": "I am based in Madhya Pradesh, India. Remote collaboration works well too."
+  },
+  {
+    "keywords": ["pricing", "price", "cost", "rate", "budget"],
+    "reply": "Pricing depends on scope and timeline. Share a quick brief and I will estimate."
+  },
+  {
+    "keywords": ["availability", "available", "start", "timeline"],
+    "reply": "I can usually start within a week for small projects. For bigger ones, I plan a short kickoff."
+  },
+  {
+    "keywords": ["frontend", "ui", "ux", "design"],
+    "reply": "I enjoy building clean UI with strong UX. Want a quick walkthrough of my approach?"
+  },
+  {
+    "keywords": ["backend", "api", "database"],
+    "reply": "For backend I use Django or Flask with a clean API layer and solid database design."
+  },
+  {
+    "keywords": ["flutter", "mobile", "app"],
+    "reply": "Yes, I build mobile apps with Flutter. If you have a concept, I can help scope it."
+  },
+  {
+    "keywords": ["django", "flask", "python"],
+    "reply": "Python is my primary backend stack. I work a lot with Django and Flask."
+  },
+  {
+    "keywords": ["website", "web", "landing", "portfolio"],
+    "reply": "I can build modern, fast websites with a clean responsive layout."
+  },
+  {
+    "keywords": ["hosting", "deploy", "deployment", "vercel", "netlify"],
+    "reply": "I can handle hosting and deployment. I often use Vercel or Netlify for web apps."
+  },
+  {
+    "keywords": ["maintenance", "support"],
+    "reply": "I do offer maintenance. We can decide a simple monthly plan after launch."
+  },
+  {
+    "keywords": ["collaborate", "team", "together"],
+    "reply": "I enjoy collaborating. If you have a team, I can plug in smoothly."
+  },
+  {
+    "keywords": ["name", "who are you", "about you"],
+    "reply": "I'm Ayush Patel, a full‑stack developer who loves building clean, user‑friendly products."
+  },
+  {
+    "keywords": ["hello", "hi", "hey", "yo"],
+    "reply": "Hey there! Ask me about skills, projects, or how to get in touch."
+  },
+  {
+    "keywords": ["help", "menu", "commands"],
+    "reply": "Try: skills, projects, resume, contact, education, certifications, repos."
+  }
+]

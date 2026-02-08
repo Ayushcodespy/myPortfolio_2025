@@ -30,9 +30,28 @@
     </style>
 </head>
 
-<body>
+<body id="top">
+
+    <nav class="site-nav">
+        <a class="nav-brand" href="#home">Ayush</a>
+        <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+        <div class="nav-links" id="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="#projects">Projects</a>
+            <a href="#github-repos">Repos</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- <div id="particles-js"></div> -->
+
+    
     <!-- ======================= HERO SECTION ========================= -->
-    <section class="hero">
+    <section class="hero" id="home">
         <button id="theme-switch" onclick="toggleTheme()">
             <svg class="theme-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
                 <path
@@ -76,24 +95,20 @@
     <div id="chat-window" class="chat-window">
         <div class="chat-header">
             <h3>My Personal Assistant</h3>
-            <button class="close-btn" onclick="toggleChat()">✕</button>
+            <button class="close-btn" onclick="toggleChat()">x</button>
         </div>
         <div class="chat-body">
-            <div class="chat-container">
-                <div class="message bot">👋 Hello! How can I help you today?</div>
-                <div class="message user">I want to know about your skills.</div>
-                <div class="message bot">Sure! You can check the skills section below 👇</div>
+            <div class="chat-container" id="chat-messages">
+                <div class="message bot">Hi! How can I help you today?</div>
             </div>
-            <!-- Comment to remove -->
-            This section is under development. Stay tuned!
-
         </div>
         <div class="chat-footer">
-            <input type="text" placeholder="Type a message..." disabled />
-            <button disabled>Send</button>
+            <input id="chat-input" type="text" placeholder="Type a message..." autocomplete="off" />
+            <button id="chat-send" type="button">Send</button>
         </div>
     </div>
     <!-- ======================= CHATBOT WINDOW ENDS========================= -->
+
 
 
     <!-- ======================= ABOUT SECTION ========================= -->
@@ -149,7 +164,7 @@
 
     <!-- ======================= SKILLS SECTION ========================= -->
 
-    <section class="skill-categories">
+    <section class="skill-categories" id="skills">
         <h2>Technical Skills</h2>
         <div class="category-tabs">
             <div class="category-tab active" data-tab="languages">Programming Languages</div>
@@ -277,124 +292,65 @@
 
         <div class="timeline-items">
 
-            <!-- Timeline Item 0: Early Schooling -->
+            {% if education_items %}
+            {% for edu in education_items %}
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
-                <div class="timeline-date">UKG - Class 5 (Till 2015)</div>
+                <div class="timeline-date">{{ edu.date_range }}</div>
                 <div class="timeline-content">
-                    <h3>Primary Schooling</h3>
-                    <p>
-                        Started early education from <span class="highlight">Holy Child Convent High School</span> from
-                        UKG to Class 2.
-                        Completed Class 3 from <span class="highlight">Rastra Pita Mahatma Gandhi Bal Vidyalaya</span>.
-                        Then attended Class 4 and 5 at a <strong>Government School in my village (Madhya
-                            Pradesh)</strong>.
-                    </p>
+                    <h3>{{ edu.title }}</h3>
+                    {% if edu.institution %}
+                    <p><span class="highlight">{{ edu.institution }}</span></p>
+                    {% endif %}
+                    <p>{{ edu.description|linebreaksbr }}</p>
                 </div>
             </div>
-
-            <!-- Timeline Item 1 -->
+            {% endfor %}
+            {% else %}
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
-                <div class="timeline-date">2015 – 2019</div>
+                <div class="timeline-date">No entries</div>
                 <div class="timeline-content">
-                    <h3>Schooling (Class 6th to 9th)</h3>
-                    <p>Completed foundational education from <span class="highlight">Jawahar Navodaya Vidyalaya</span>,
-                        focusing on
-                        core subjects and overall development.</p>
+                    <h3>Education</h3>
+                    <p>Add education details from the admin panel.</p>
                 </div>
             </div>
-
-            <!-- Timeline Item 2 -->
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-date">2020</div>
-                <div class="timeline-content">
-                    <h3>Class 10th (CBSE)</h3>
-                    <p>Passed Class 10th from <span class="highlight">Jawahar Navodaya Vidyalaya</span> with a strong
-                        academic record
-                        and participation in co-curricular activities.</p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 3 -->
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-date">2022</div>
-                <div class="timeline-content">
-                    <h3>Class 12th (PCM + Computer Science)</h3>
-                    <p>Completed Higher Secondary Education from <span class="highlight">Jawahar Navodaya
-                            Vidyalaya</span> with major
-                        subjects Physics, Chemistry, Mathematics, and Computer Science.</p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 4 -->
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-date">2022 – 2026</div>
-                <div class="timeline-content">
-                    <h3>B.Tech in Computer Science & Engineering</h3>
-                    <p>Currently pursuing undergraduate degree at <span class="highlight">AKS University</span>,
-                        focusing on software
-                        engineering, data structures, and emerging technologies.</p>
-                </div>
-            </div>
+            {% endif %}
 
         </div>
     </section>
     <!-- ======================= EDUCATION SECTION ENDS========================= -->
 
+
     <!-- ======================= CERTIFICATION SECTION ========================= -->
     <section class="certifications" id="certifications">
         <h2>Certifications</h2>
         <div class="certifications-grid">
+            {% if certificates %}
+            {% for cert in certificates %}
             <div class="cert-card">
                 <i class="fas fa-certificate"></i>
-                <h3>Python Bootcamp 2025</h3>
-                <span>Code With Harry · November 2025</span>
-                <a class="view-btn" href="{% static 'certificates/Python_from_Scratch_Certificate.pdf' %}" target="_blank" alt="Certificate in progress">View</a>
+                <h3>{{ cert.title }}</h3>
+                <span>{{ cert.issuer }} - {{ cert.issued_date }}</span>
+                {% if cert.drive_link %}
+                {% if cert.drive_link|slice:":4" == "http" %}
+                <a class="view-btn" href="{{ cert.drive_link }}" target="_blank">View</a>
+                {% elif cert.drive_link|slice:":1" == "/" %}
+                <a class="view-btn" href="{{ cert.drive_link }}" target="_blank">View</a>
+                {% else %}
+                <a class="view-btn" href="{% static cert.drive_link %}" target="_blank">View</a>
+                {% endif %}
+                {% endif %}
             </div>
-            <div class="cert-card">
-                <i class="fas fa-certificate"></i>
-                <h3>Data Science and AI</h3>
-                <span>Code With Harry · October 2025</span>
-                <a class="view-btn" href="{% static 'certificates/Data_Science_CWH.pdf' %}" target="_blank" alt="Certificate in progress">View</a>
-            </div>
-            <div class="cert-card">
-                <i class="fas fa-certificate"></i>
-                <h3>Junior Software Developer</h3>
-                <span>Skill India · November 2024</span>
-                <a class="view-btn" href="{% static 'certificates/Junior_Software_Developer_By_Skill_India.jpg' %}"
-                    target="_blank">View</a>
-            </div>
-            <div class="cert-card">
-                <i class="fas fa-certificate"></i>
-                <h3>A Novel Electromagnetic Pulse Repeater Design</h3>
-                <span>IC-ASTSDGs · March 2024</span>
-                <a class="view-btn" href="{% static 'certificates/Electromagnetic_Pulse_Repeater.pdf' %}" target="_blank">View</a>
-            </div>
-            <div class="cert-card">
-                <i class="fas fa-certificate"></i>
-                <h3>Data Science & Analytics</h3>
-                <span>HP Foundation · October 2024</span>
-                <a class="view-btn" href="{% static 'certificates/Data_Analytics_by_HP.pdf' %}" target="_blank">View</a>
-            </div>
-            <div class="cert-card">
-                <i class="fas fa-certificate"></i>
-                <h3>Code Cubicle Hackathon</h3>
-                <span>Geek Room · September 2024</span>
-                <a class="view-btn" href="{% static 'certificates/CubicCode.pdf' %}" target="_blank">View</a>
-            </div>
-            <div class="cert-card">
-                <i class="fa fa-certificate"></i>
-                <h3>ThrillX 1.0 Hackathon</h3>
-                <span>AKS University · September 2024</span>
-                <a class="view-btn" href="{% static 'certificates/Thrill-X_By_AKS.pdf' %}" target="_blank">View</a>
-            </div>
+            {% endfor %}
+            {% else %}
+            <p class="empty-state">No certifications yet. Add them from the admin panel.</p>
+            {% endif %}
         </div>
     </section>
     <!-- ======================= CERTIFICATION SECTION ENDS ========================= -->
+
+
 
     <!-- ======================= GITHUB REPOSITORIES SECTION ========================= -->
     <section class="github-repos" id="github-repos">
@@ -447,69 +403,60 @@
         <h2 class="heading">My Popular Projects</h2>
         <div class="swiper mySwiper" style="max-width: 1200px; margin: auto;">
             <div class="swiper-wrapper">
+                {% if featured_projects %}
+                {% for project in featured_projects %}
                 <div class="swiper-slide">
-                    <div class="project-card">
-                        <a href="https://aryaztech.vercel.app/" target="_blank">
-                            <img src="{% static 'images/projects/arya-z-tech.png' %}" alt="Project Screenshot">
+                    <div class="project-card" onclick="window.location.href='{% url 'project_detail' slug=project.slug %}'">
+                        <a href="{% url 'project_detail' slug=project.slug %}">
+                            {% if project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            {% elif project.image_path %}
+                            {% if project.image_path|slice:":4" == "http" %}
+                            <img src="{{ project.image_path }}" alt="{{ project.title }}">
+                            {% elif project.image_path|slice:":1" == "/" %}
+                            <img src="{{ project.image_path }}" alt="{{ project.title }}">
+                            {% else %}
+                            <img src="{% static project.image_path %}" alt="{{ project.title }}">
+                            {% endif %}
+                            {% endif %}
                         </a>
                         <div class="project-info">
-                            <h3>ARYA-Z-TECH</h3>
-                            <p>A business website offering website development and deployment services, built using
-                                HTML, CSS, JS, Flask, and hosted on Vercel.</p>
-                            <a href="" class="view-btn"> <i class="fa fa-eye"></i></a>
+                            <h3>{{ project.title }}</h3>
+                            <p>{{ project.short_description }}</p>
+                            <a href="{% url 'project_detail' slug=project.slug %}" class="view-btn icon-btn" title="View Details">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            {% if project.source_code_price_inr and project.source_code_zip %}
+                            <a href="{% url 'project_detail' slug=project.slug %}#buy" class="dark-btn">Buy</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+                {% else %}
                 <div class="swiper-slide">
                     <div class="project-card">
-                        <a href="https://ayushpatelportfolio.netlify.app/" target="_blank">
-                            <img src="{% static 'images/projects/portfolio.png' %}" alt="Project Screenshot">
-                        </a>
                         <div class="project-info">
-                            <h3>Old Portfolio</h3>
-                            <p>This was my earlier portfolio showcasing my journey, skills, and work using simple HTML,
-                                CSS, and Bootstrap layout.</p>
-                            <a href="" class="view-btn"> <i class="fa fa-eye"></i></a>
+                            <h3>No Projects Yet</h3>
+                            <p>Add projects from the admin panel to see them here.</p>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="project-card">
-                        <a href="https://example.com" target="_blank">
-                            <img src="{% static 'images/projects/school.png' %}" alt="Project Screenshot">
-                        </a>
-                        <div class="project-info">
-                            <h3>School Management System</h3>
-                            <p>A complete Django-based school system to manage students, teachers, attendance,
-                                admissions, fees, and more.</p>
-                            <a href="" class="view-btn"> <i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="project-card">
-                        <a href="https://example.com" target="_blank">
-                            <img src="{% static 'images/projects/new-portfolio.png' %}" alt="Project Screenshot">
-                        </a>
-                        <div class="project-info">
-                            <h3>New Portfolio</h3>
-                            <p>This portfolio you're viewing now, crafted with advanced UI, modern effects, Swiper
-                                slider, and highly optimized sections.</p>
-                            <a href="" class="view-btn"> <i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
+                {% endif %}
             </div>
             <div class="swiper-pagination"></div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
+        </div>
+        <div class="projects-cta">
+            <a class="dark-btn" href="{% url 'projects' %}">View All Projects</a>
         </div>
     </section>
     <!-- ======================= PROJECTS SECTION ENDS ========================= -->
 
     <!-- ========================= Testimonial Section============================= -->
 
-    <section class="testimonials">
+    <section class="testimonials" id="testimonials">
         <h2 class="section-heading">Client's Feedback About Me</h2>
         <p class="section-subheading">A small, engaging line about the testimonials.</p>
 
@@ -623,8 +570,114 @@
 
     <script>
         function toggleChat() {
-            document.getElementById("chat-window").classList.toggle("active");
+            const chatWindow = document.getElementById("chat-window");
+            if (!chatWindow) return;
+            const willOpen = !chatWindow.classList.contains("active");
+            chatWindow.classList.toggle("active");
+            if (willOpen) {
+                setTimeout(() => {
+                    const input = document.getElementById("chat-input");
+                    if (input) input.focus();
+                }, 150);
+            }
         }
+    </script>
+
+    <script>
+        const chatInput = document.getElementById("chat-input");
+        const chatSend = document.getElementById("chat-send");
+        const chatMessages = document.getElementById("chat-messages");
+        const chatDataUrl = "{% static 'data/chat_responses.json' %}";
+
+        function appendMessage(text, type) {
+            if (!chatMessages) return;
+            const msg = document.createElement("div");
+            msg.className = `message ${type}`;
+            msg.textContent = text;
+            chatMessages.appendChild(msg);
+            chatMessages.parentElement.scrollTop = chatMessages.parentElement.scrollHeight;
+        }
+
+        let chatKnowledgeBase = [
+            {
+                keywords: ["skills", "tech", "stack", "technology", "tools"],
+                reply: "You can check the Technical Skills section below on this page."
+            }
+        ];
+
+        async function loadChatKnowledgeBase() {
+            try {
+                const res = await fetch(`${chatDataUrl}?_=${Date.now()}`);
+                if (!res.ok) throw new Error("Chat data fetch failed");
+                const data = await res.json();
+                if (Array.isArray(data) && data.length > 0) {
+                    chatKnowledgeBase = data;
+                }
+            } catch (err) {
+                // Keep the small fallback data to avoid breaking chat
+            }
+        }
+
+        loadChatKnowledgeBase();
+
+        function getBotReply(message) {
+            const text = message.toLowerCase();
+            for (const item of chatKnowledgeBase) {
+                if (item.keywords.some(keyword => text.includes(keyword))) {
+                    return item.reply;
+                }
+            }
+            return "Thanks for the message. Ask me about skills, projects, or contact info.";
+        }
+
+        function sendChat() {
+            if (!chatInput || !chatMessages) return;
+            const value = chatInput.value.trim();
+            if (!value) return;
+            appendMessage(value, "user");
+            chatInput.value = "";
+            setTimeout(() => {
+                appendMessage(getBotReply(value), "bot");
+            }, 400);
+        }
+
+        if (chatSend) {
+            chatSend.addEventListener("click", sendChat);
+        }
+
+        if (chatInput) {
+            chatInput.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    sendChat();
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function toggleNav() {
+            const links = document.getElementById("nav-links");
+            const toggleBtn = document.querySelector(".nav-toggle");
+            if (!links) return;
+            links.classList.toggle("open");
+            if (toggleBtn) {
+                toggleBtn.setAttribute("aria-expanded", links.classList.contains("open"));
+            }
+        }
+
+        document.querySelectorAll(".nav-links a").forEach(link => {
+            link.addEventListener("click", () => {
+                const links = document.getElementById("nav-links");
+                const toggleBtn = document.querySelector(".nav-toggle");
+                if (links) {
+                    links.classList.remove("open");
+                }
+                if (toggleBtn) {
+                    toggleBtn.setAttribute("aria-expanded", "false");
+                }
+            });
+        });
     </script>
 
     <script>
@@ -829,6 +882,9 @@
         container.addEventListener('mouseout', autoSliding);
 
     </script>
+
+    <script src="{% static 'scripts/particles.min.js' %}"></script>
+    <script src="{% static 'scripts/particles-config.js' %}"></script>
 
 
 </body>

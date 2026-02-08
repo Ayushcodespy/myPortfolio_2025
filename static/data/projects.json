@@ -1,0 +1,46 @@
+[
+  {
+    "slug": "arya-z-tech",
+    "title": "ARYA-Z-TECH",
+    "short_description": "A business website offering website development and deployment services.",
+    "long_description": "ARYA-Z-TECH is a clean, fast business website built to showcase services, highlight credibility, and convert visitors into leads. It focuses on performance, strong CTAs, and a professional brand feel.",
+    "tech_stack": ["HTML", "CSS", "JavaScript", "Flask"],
+    "highlights": ["Responsive layout", "Service-focused landing pages", "Deployed on Vercel"],
+    "image": "images/projects/arya-z-tech.png",
+    "demo_url": "https://aryaztech.vercel.app/",
+    "source_code_price_inr": 1499
+  },
+  {
+    "slug": "old-portfolio",
+    "title": "Old Portfolio",
+    "short_description": "My earlier portfolio showcasing my journey, skills, and work.",
+    "long_description": "This portfolio was my first polished personal site. It focuses on clarity, quick navigation, and a simple layout to highlight projects, skills, and contact details.",
+    "tech_stack": ["HTML", "CSS", "Bootstrap"],
+    "highlights": ["Simple and clean layout", "Fast load times", "Mobile-friendly"],
+    "image": "images/projects/portfolio.png",
+    "demo_url": "https://ayushpatelportfolio.netlify.app/",
+    "source_code_price_inr": 999
+  },
+  {
+    "slug": "school-management-system",
+    "title": "School Management System",
+    "short_description": "A complete Django-based school system to manage students, teachers, and fees.",
+    "long_description": "A full-featured school management system that handles admissions, attendance, fees, and reporting. It includes admin dashboards, role-based access, and data exports.",
+    "tech_stack": ["Django", "Python", "SQLite", "HTML", "CSS"],
+    "highlights": ["Admin dashboards", "Attendance and fee tracking", "Role-based access"],
+    "image": "images/projects/school.png",
+    "demo_url": "https://example.com",
+    "source_code_price_inr": 2999
+  },
+  {
+    "slug": "new-portfolio",
+    "title": "New Portfolio",
+    "short_description": "This portfolio you're viewing now, crafted with modern UI and effects.",
+    "long_description": "My latest portfolio with a modern UI, animated sections, sliders, and a clean layout. It is designed to be bold, readable, and easy to navigate.",
+    "tech_stack": ["Django", "HTML", "CSS", "JavaScript", "Swiper"],
+    "highlights": ["Modern UI effects", "Responsive sections", "Optimized performance"],
+    "image": "images/projects/new-portfolio.png",
+    "demo_url": "https://example.com",
+    "source_code_price_inr": 1999
+  }
+]

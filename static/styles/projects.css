@@ -1,0 +1,257 @@
+.page-hero {
+    padding: 140px 20px 40px;
+    text-align: center;
+    color: var(--heading-color);
+}
+
+.page-hero h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.page-hero p {
+    color: var(--text-light);
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+.page-hero .hero-actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.projects-page {
+    padding: 20px 20px 100px;
+}
+
+.projects-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.projects-page .project-card {
+    width: 100%;
+}
+
+.project-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.project-info {
+    padding: 20px;
+    text-align: left;
+}
+
+.project-meta {
+    margin: 12px 0;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.projects-page .project-card .view-btn.icon-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px var(--card-shadow);
+}
+
+.projects-page .project-card .view-btn.icon-btn i {
+    font-size: 14px;
+}
+
+.projects-page .project-info .view-btn {
+    position: static;
+}
+
+.project-actions .light-btn,
+.project-actions .view-btn {
+    margin: 0;
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-light);
+}
+
+.project-detail {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 20px 100px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+}
+
+.detail-media img {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 12px 30px var(--card-shadow);
+}
+
+.detail-info h2,
+.detail-info h3 {
+    color: var(--heading-color);
+    margin: 20px 0 10px;
+}
+
+.detail-info p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tech-list span {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--card-border);
+    color: var(--text-light);
+    font-size: 12px;
+}
+
+.highlight-list {
+    padding-left: 20px;
+    color: var(--text-light);
+}
+
+.price-row {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.buy-form {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.buy-form label {
+    font-size: 14px;
+    color: var(--heading-color);
+}
+
+.buy-form input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--form-input-border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+.buy-form small {
+    color: var(--text-light);
+    font-size: 12px;
+}
+
+.price-tag {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.payment-note {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.payment-status {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.payment-status.error {
+    color: #ff6b6b;
+}
+
+.payment-status.success {
+    color: #00bfff;
+    font-weight: 600;
+}
+
+.success-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 2000;
+}
+
+.success-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.success-card {
+    background: var(--bg-color);
+    color: var(--heading-color);
+    padding: 24px 28px;
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+}
+
+.success-card h3 {
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.success-card .redirect-note {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+@media (max-width: 900px) {
+    .project-detail {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .page-hero h1 {
+        font-size: 30px;
+    }
+}
