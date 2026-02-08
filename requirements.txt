@@ -5,3 +5,4 @@ tzdata==2025.2
 whitenoise==6.9.0
 razorpay==1.4.2
 psycopg[binary]==3.3.2
+python-dotenv==1.0.1

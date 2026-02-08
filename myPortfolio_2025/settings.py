@@ -12,22 +12,26 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from urllib.parse import urlparse, parse_qs
+
+from dotenv import load_dotenv
+from myApp import config as app_config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&x9_c@7-5l@5w916a_7e+9xuj1&$_v7nyp!cn11dsfmmgw#eto'
+SECRET_KEY = app_config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = app_config.DEBUG
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = app_config.ALLOWED_HOSTS
 
 
 # Application definition
@@ -78,7 +82,7 @@ WSGI_APPLICATION = 'myPortfolio_2025.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 def _build_database_config():
-    database_url = os.getenv("DATABASE_URL", "").strip()
+    database_url = app_config.DATABASE_URL.strip()
     if database_url:
         parsed = urlparse(database_url)
         if parsed.scheme.startswith("postgres"):
@@ -156,21 +160,19 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Email configuration (set these in environment variables)
-EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
-EMAIL_HOST = os.getenv("EMAIL_HOST", "")
-EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "true").lower() == "true"
-EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "false").lower() == "true"
-if EMAIL_USE_SSL:
-    EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
-PORTFOLIO_ADMIN_EMAIL = os.getenv("PORTFOLIO_ADMIN_EMAIL", DEFAULT_FROM_EMAIL)
+EMAIL_BACKEND = app_config.EMAIL_BACKEND
+EMAIL_HOST = app_config.EMAIL_HOST
+EMAIL_PORT = app_config.EMAIL_PORT
+EMAIL_HOST_USER = app_config.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = app_config.EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS = app_config.EMAIL_USE_TLS
+EMAIL_USE_SSL = app_config.EMAIL_USE_SSL
+DEFAULT_FROM_EMAIL = app_config.DEFAULT_FROM_EMAIL
+PORTFOLIO_ADMIN_EMAIL = app_config.PORTFOLIO_ADMIN_EMAIL
 
 # Optional branding for emails
-SITE_URL = os.getenv("SITE_URL", "http://127.0.0.1:8000")
-EMAIL_LOGO_URL = os.getenv("EMAIL_LOGO_URL", "")
+SITE_URL = app_config.SITE_URL
+EMAIL_LOGO_URL = app_config.EMAIL_LOGO_URL
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
