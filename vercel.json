@@ -6,7 +6,7 @@
         "src": "myPortfolio_2025/wsgi.py",
         "use": "@vercel/python",
         "config": {
-          "maxLambdaSize": "50mb" , "runtime": "python3.13"
+          "maxLambdaSize": "50mb" , "runtime": "python3.12"
         }
       }
     ],
