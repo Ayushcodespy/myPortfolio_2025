@@ -31,7 +31,8 @@ SECRET_KEY = app_config.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = app_config.DEBUG
 
-ALLOWED_HOSTS = app_config.ALLOWED_HOSTS
+# ALLOWED_HOSTS = app_config.ALLOWED_HOSTS
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
