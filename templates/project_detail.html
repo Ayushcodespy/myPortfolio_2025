@@ -38,9 +38,7 @@
 
     <section class="project-detail">
         <div class="detail-media">
-            {% if project.image %}
-            <img src="{{ project.image.url }}" alt="{{ project.title }}">
-            {% elif project.image_path %}
+            {% if project.image_path %}
             {% if project.image_path|slice:":4" == "http" %}
             <img src="{{ project.image_path }}" alt="{{ project.title }}">
             {% elif project.image_path|slice:":1" == "/" %}
@@ -48,6 +46,8 @@
             {% else %}
             <img src="{% static project.image_path %}" alt="{{ project.title }}">
             {% endif %}
+            {% elif project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
             {% endif %}
         </div>
         <div class="detail-info">

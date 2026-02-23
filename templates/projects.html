@@ -35,9 +35,7 @@
         <div class="projects-grid">
             {% for project in projects %}
             <div class="project-card" onclick="window.location.href='{% url 'project_detail' slug=project.slug %}'">
-                {% if project.image %}
-                <img src="{{ project.image.url }}" alt="{{ project.title }}">
-                {% elif project.image_path %}
+                {% if project.image_path %}
                 {% if project.image_path|slice:":4" == "http" %}
                 <img src="{{ project.image_path }}" alt="{{ project.title }}">
                 {% elif project.image_path|slice:":1" == "/" %}
@@ -45,6 +43,8 @@
                 {% else %}
                 <img src="{% static project.image_path %}" alt="{{ project.title }}">
                 {% endif %}
+                {% elif project.image %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}">
                 {% endif %}
                 <div class="project-info">
                     <h3>{{ project.title }}</h3>
