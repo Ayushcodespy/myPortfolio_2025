@@ -55,6 +55,11 @@ class Project(models.Model):
         blank=True,
         help_text="Static path or full URL, e.g. images/projects/project.png",
     )
+    source_code_url = models.CharField(
+        max_length=500,
+        blank=True,
+        help_text="Public source code URL, e.g. https://... or /static/source_code/project.zip",
+    )
     demo_url = models.URLField(blank=True, help_text="Live link URL")
     source_code_price_inr = models.PositiveIntegerField(default=0)
     is_featured = models.BooleanField(default=False)

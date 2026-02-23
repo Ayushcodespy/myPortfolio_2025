@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 
 from .models import Certificate, Education, Project
@@ -23,3 +24,37 @@ class ProjectAdmin(admin.ModelAdmin):
     list_editable = ("is_featured", "order", "source_code_price_inr")
     search_fields = ("title", "slug")
     prepopulated_fields = {"slug": ("title",)}
+
+    def get_fields(self, request, obj=None):
+        base_fields = [
+            "title",
+            "slug",
+            "short_description",
+            "long_description",
+            "tech_stack",
+            "highlights",
+            "image_path",
+            "source_code_url",
+            "demo_url",
+            "source_code_price_inr",
+            "is_featured",
+            "order",
+        ]
+        if settings.DEBUG:
+            return [
+                "title",
+                "slug",
+                "short_description",
+                "long_description",
+                "tech_stack",
+                "highlights",
+                "image",
+                "image_path",
+                "source_code_zip",
+                "source_code_url",
+                "demo_url",
+                "source_code_price_inr",
+                "is_featured",
+                "order",
+            ]
+        return base_fields

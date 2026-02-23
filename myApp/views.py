@@ -222,11 +222,15 @@ def _apply_project_assets(project):
         return project
 
     if isinstance(project, dict):
-        project["image_path"] = mapped.get("image_path", project.get("image_path", ""))
-        project["source_code_url"] = mapped.get("source_code_url", project.get("source_code_url", ""))
+        if not project.get("image_path"):
+            project["image_path"] = mapped.get("image_path", "")
+        if not project.get("source_code_url"):
+            project["source_code_url"] = mapped.get("source_code_url", "")
     else:
-        project.image_path = mapped.get("image_path", getattr(project, "image_path", ""))
-        project.source_code_url = mapped.get("source_code_url", "")
+        if not getattr(project, "image_path", ""):
+            project.image_path = mapped.get("image_path", "")
+        if not getattr(project, "source_code_url", ""):
+            project.source_code_url = mapped.get("source_code_url", "")
 
     return project
 
