@@ -426,7 +426,7 @@
                             <a href="{% url 'project_detail' slug=project.slug %}" class="view-btn icon-btn" title="View Details">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            {% if project.source_code_price_inr and project.source_code_zip %}
+                            {% if project.source_code_price_inr and project.source_code_url %}
                             <a href="{% url 'project_detail' slug=project.slug %}#buy" class="dark-btn">Buy</a>
                             {% endif %}
                         </div>

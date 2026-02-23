@@ -28,7 +28,7 @@
     <section class="page-hero">
         <h1>{{ project.title }}</h1>
         <p>{{ project.short_description }}</p>
-        {% if project.source_code_price_inr and project.source_code_zip %}
+        {% if project.source_code_price_inr and project.source_code_url %}
         <div class="hero-actions">
             <span class="price-tag">Source Code: ₹{{ project.source_code_price_inr }}</span>
             <a class="dark-btn" href="#buy">Buy Now</a>
@@ -68,7 +68,7 @@
                 {% endfor %}
             </ul>
 
-            {% if project.source_code_price_inr and project.source_code_zip %}
+            {% if project.source_code_price_inr and project.source_code_url %}
             <div class="price-row" id="buy">
                 <div class="price-tag">Source Code: ₹{{ project.source_code_price_inr }}</div>
                 <button class="dark-btn" id="buy-source">Buy Source Code</button>
@@ -76,7 +76,7 @@
             <div class="buy-form">
                 <label for="buyer-email">Email for delivery</label>
                 <input id="buyer-email" type="email" placeholder="you@example.com" required>
-                <small>We will send the zip file to this email after payment.</small>
+                <small>We will send a secure download link to this email after payment.</small>
             </div>
             {% else %}
             <p class="payment-note">Contact me for pricing and source code access.</p>
@@ -89,9 +89,9 @@
                 <a class="light-btn" href="{% url 'projects' %}">Back to Projects</a>
             </div>
 
-            {% if project.source_code_price_inr and project.source_code_zip %}
+            {% if project.source_code_price_inr and project.source_code_url %}
             <p class="payment-note">
-                After payment, your zip file will be emailed automatically to the address above.
+                After payment, a source code download link will be emailed automatically to the address above.
             </p>
             <p id="payment-status" class="payment-status"></p>
             {% endif %}
@@ -101,7 +101,7 @@
     <div id="success-overlay" class="success-overlay" tabindex="-1" aria-live="polite" aria-modal="true" role="dialog">
         <div class="success-card" role="document">
             <h3>Payment Successful</h3>
-            <p id="success-message">Your zip file has been emailed to you.</p>
+            <p id="success-message">Your download link has been emailed to you.</p>
             <p class="redirect-note">Redirecting you to projects...</p>
         </div>
     </div>
@@ -148,7 +148,7 @@
 
         function showSuccess(message) {
             if (successMessage) {
-                successMessage.textContent = message || "Your zip file has been emailed to you.";
+                successMessage.textContent = message || "Your download link has been emailed to you.";
             }
             if (successOverlay) {
                 successOverlay.classList.add("active");
@@ -162,7 +162,7 @@
         if (buyButton) {
             buyButton.addEventListener("click", async () => {
                 if (!emailInput || !emailInput.value.trim() || !emailInput.value.includes("@")) {
-                    setStatus("Please enter a valid email to receive the zip file.", true);
+                    setStatus("Please enter a valid email to receive the download link.", true);
                     return;
                 }
 
@@ -222,8 +222,8 @@
                 if (!res.ok || data.error) {
                     throw new Error(data.error || "Verification failed");
                 }
-                setStatus("Payment successful! The zip file has been emailed to you.");
-                showSuccess("Payment successful! The zip file has been emailed to you.");
+                setStatus("Payment successful! Download link has been emailed to you.");
+                showSuccess("Payment successful! Download link has been emailed to you.");
             } catch (err) {
                 setStatus("Payment verified, but email failed. Please contact me.", true);
             }

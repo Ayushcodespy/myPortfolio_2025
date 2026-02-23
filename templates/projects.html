@@ -63,7 +63,7 @@
                         {% if project.demo_url %}
                         <a class="light-btn" href="{{ project.demo_url }}" target="_blank">Live Link</a>
                         {% endif %}
-                        {% if project.source_code_price_inr and project.source_code_zip %}
+                        {% if project.source_code_price_inr and project.source_code_url %}
                         <a class="dark-btn" href="{% url 'project_detail' slug=project.slug %}#buy">Buy</a>
                         {% endif %}
                     </div>

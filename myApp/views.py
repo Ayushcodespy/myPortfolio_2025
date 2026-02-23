@@ -1,5 +1,4 @@
 import json
-import os
 import time
 
 from django.conf import settings
@@ -18,6 +17,29 @@ except Exception:
 
 from .models import Certificate, Education, Project
 from .razorpay_config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
+
+HARD_CODED_PROJECT_ASSETS = {
+    "arya-z-tech": {
+        "image_path": "/static/images/projects/img/arya-z-tech.png",
+        "source_code_url": "/static/source_code/arya-z-tech.zip",
+    },
+    "old-portfolio": {
+        "image_path": "/static/images/projects/img/portfolio.png",
+        "source_code_url": "/static/source_code/portfolio01.zip",
+    },
+    "new-portfolio": {
+        "image_path": "/static/images/projects/img/new-portfolio.png",
+        "source_code_url": "/static/source_code/myPortfolio_2025.zip",
+    },
+    "school-management-system": {
+        "image_path": "/static/images/projects/img/school.png",
+        "source_code_url": "",
+    },
+    "agro-trade-portal": {
+        "image_path": "/static/images/projects/img/agrotrade.png",
+        "source_code_url": "/static/source_code/agro-trade-portal.zip",
+    },
+}
 
 FALLBACK_EDUCATION = [
     {
@@ -127,6 +149,7 @@ FALLBACK_PROJECTS = [
         "demo_url": "https://aryaztech.vercel.app/",
         "source_code_price_inr": 1499,
         "source_code_zip": "source_code/zip_files/arya-z-tech.zip",
+        "source_code_url": "/static/source_code/arya-z-tech.zip",
         "is_featured": True,
     },
     {
@@ -146,6 +169,7 @@ FALLBACK_PROJECTS = [
         "demo_url": "https://ayushpatelportfolio.netlify.app/",
         "source_code_price_inr": 999,
         "source_code_zip": "source_code/zip_files/portfolio01.zip",
+        "source_code_url": "/static/source_code/portfolio01.zip",
         "is_featured": True,
     },
     {
@@ -165,6 +189,7 @@ FALLBACK_PROJECTS = [
         "demo_url": "https://example.com",
         "source_code_price_inr": 2999,
         "source_code_zip": "source_code/zip_files/dummy.zip",
+        "source_code_url": "",
         "is_featured": True,
     },
     {
@@ -184,9 +209,26 @@ FALLBACK_PROJECTS = [
         "demo_url": "https://example.com",
         "source_code_price_inr": 1999,
         "source_code_zip": "source_code/zip_files/myPortfolio_2025.zip",
+        "source_code_url": "/static/source_code/myPortfolio_2025.zip",
         "is_featured": True,
     },
 ]
+
+
+def _apply_project_assets(project):
+    slug = project.get("slug", "") if isinstance(project, dict) else getattr(project, "slug", "")
+    mapped = HARD_CODED_PROJECT_ASSETS.get(slug)
+    if not mapped:
+        return project
+
+    if isinstance(project, dict):
+        project["image_path"] = mapped.get("image_path", project.get("image_path", ""))
+        project["source_code_url"] = mapped.get("source_code_url", project.get("source_code_url", ""))
+    else:
+        project.image_path = mapped.get("image_path", getattr(project, "image_path", ""))
+        project.source_code_url = mapped.get("source_code_url", "")
+
+    return project
 
 
 def _get_education_items():
@@ -208,31 +250,34 @@ def _get_certificates():
 def _get_projects():
     try:
         items = list(Project.objects.all())
-        return items or FALLBACK_PROJECTS
+        source = items or FALLBACK_PROJECTS
+        return [_apply_project_assets(item) for item in source]
     except Exception:
-        return FALLBACK_PROJECTS
+        return [_apply_project_assets(item) for item in FALLBACK_PROJECTS]
 
 
 def _get_featured_projects():
     try:
         items = list(Project.objects.filter(is_featured=True))
-        return items or [item for item in FALLBACK_PROJECTS if item.get("is_featured")]
+        source = items or [item for item in FALLBACK_PROJECTS if item.get("is_featured")]
+        return [_apply_project_assets(item) for item in source]
     except Exception:
-        return [item for item in FALLBACK_PROJECTS if item.get("is_featured")]
+        source = [item for item in FALLBACK_PROJECTS if item.get("is_featured")]
+        return [_apply_project_assets(item) for item in source]
 
 
 def _find_project(slug):
     try:
-        return Project.objects.get(slug=slug)
+        return _apply_project_assets(Project.objects.get(slug=slug))
     except Project.DoesNotExist:
         for item in FALLBACK_PROJECTS:
             if item.get("slug") == slug:
-                return item
+                return _apply_project_assets(item)
         return None
     except Exception:
         for item in FALLBACK_PROJECTS:
             if item.get("slug") == slug:
-                return item
+                return _apply_project_assets(item)
         return None
 
 def homePage(request):
@@ -295,14 +340,14 @@ def create_razorpay_order(request, slug):
     if isinstance(project, dict):
         price_inr = int(project.get("source_code_price_inr") or 0)
         project_title = project.get("title", "Project")
-        has_zip = bool(project.get("source_code_zip"))
+        has_source = bool(project.get("source_code_url"))
     else:
         price_inr = int(project.source_code_price_inr or 0)
         project_title = project.title
-        has_zip = bool(project.source_code_zip)
+        has_source = bool(getattr(project, "source_code_url", ""))
     if price_inr <= 0:
         return JsonResponse({"error": "Invalid price"}, status=400)
-    if not has_zip:
+    if not has_source:
         return JsonResponse({"error": "Source code file not available"}, status=400)
 
     client = razorpay.Client(auth=(key_id, key_secret))
@@ -370,26 +415,26 @@ def verify_razorpay_payment(request):
 
     if isinstance(project, dict):
         project_title = project.get("title", "Project")
-        zip_path = project.get("source_code_zip")
+        source_code_url = project.get("source_code_url", "")
     else:
         project_title = project.title
-        zip_path = project.source_code_zip.path if project.source_code_zip else None
+        source_code_url = getattr(project, "source_code_url", "")
 
-    if not zip_path or not os.path.exists(zip_path):
+    if not source_code_url:
         _notify_admin(
             project_title,
             buyer_email,
             payment_id,
             order_id,
-            "Zip file missing",
+            "Source code URL missing",
         )
         return JsonResponse(
-            {"error": "Payment received, but source file is missing. We will contact you."},
+            {"error": "Payment received, but source URL is missing. We will contact you."},
             status=500,
         )
 
     try:
-        _send_purchase_emails(project_title, buyer_email, payment_id, order_id, zip_path)
+        _send_purchase_emails(project_title, buyer_email, payment_id, order_id, source_code_url)
     except Exception as err:
         return JsonResponse(
             {"error": f"Email failed: {err}"},
@@ -399,13 +444,18 @@ def verify_razorpay_payment(request):
     return JsonResponse({"status": "success"})
 
 
-def _send_purchase_emails(project_title, buyer_email, payment_id, order_id, zip_path):
+def _send_purchase_emails(project_title, buyer_email, payment_id, order_id, source_code_url):
+    if source_code_url.startswith("/"):
+        base_url = (getattr(settings, "SITE_URL", "") or "").rstrip("/")
+        source_code_url = f"{base_url}{source_code_url}" if base_url else source_code_url
+
     subject = f"Your source code - {project_title}"
     context = {
         "project_title": project_title,
         "buyer_email": buyer_email,
         "payment_id": payment_id,
         "order_id": order_id,
+        "source_code_url": source_code_url,
         "site_url": getattr(settings, "SITE_URL", ""),
         "logo_url": getattr(settings, "EMAIL_LOGO_URL", ""),
         "sender_name": "Ayush Patel",
@@ -420,10 +470,9 @@ def _send_purchase_emails(project_title, buyer_email, payment_id, order_id, zip_
         to=[buyer_email],
     )
     email.attach_alternative(html_body, "text/html")
-    email.attach_file(zip_path)
     email.send(fail_silently=False)
 
-    _notify_admin(project_title, buyer_email, payment_id, order_id, "Sent to buyer")
+    _notify_admin(project_title, buyer_email, payment_id, order_id, "Source link sent to buyer")
 
 
 def _notify_admin(project_title, buyer_email, payment_id, order_id, status_note):

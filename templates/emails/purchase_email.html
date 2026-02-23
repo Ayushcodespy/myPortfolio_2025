@@ -28,11 +28,14 @@
             </div>
             <div class="content">
                 <p class="title">Hi {{ buyer_email }},</p>
-                <p>Thank you for purchasing <strong>{{ project_title }}</strong>. Your source code zip is attached to this email.</p>
+                <p>Thank you for purchasing <strong>{{ project_title }}</strong>. Your source code download link is below.</p>
                 <div class="meta">
                     <div><strong>Payment ID:</strong> {{ payment_id }}</div>
                     <div><strong>Order ID:</strong> {{ order_id }}</div>
                 </div>
+                {% if source_code_url %}
+                <p><a class="button" href="{{ source_code_url }}">Download Source Code</a></p>
+                {% endif %}
                 <p>If you need any help, just reply to this email.</p>
                 {% if site_url %}
                 <p><a class="button" href="{{ site_url }}">Visit Portfolio</a></p>
