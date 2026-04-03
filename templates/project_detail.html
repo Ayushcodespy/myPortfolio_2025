@@ -40,14 +40,14 @@
         <div class="detail-media">
             {% if project.image_path %}
             {% if project.image_path|slice:":4" == "http" %}
-            <img src="{{ project.image_path }}" alt="{{ project.title }}">
+            <img src="{{ project.image_path }}" alt="{{ project.title }}" onerror="this.onerror=null;this.src='{% static 'images/projects/img/project-placeholder.svg' %}';">
             {% elif project.image_path|slice:":1" == "/" %}
-            <img src="{{ project.image_path }}" alt="{{ project.title }}">
+            <img src="{{ project.image_path }}" alt="{{ project.title }}" onerror="this.onerror=null;this.src='{% static 'images/projects/img/project-placeholder.svg' %}';">
             {% else %}
-            <img src="{% static project.image_path %}" alt="{{ project.title }}">
+            <img src="{% static project.image_path %}" alt="{{ project.title }}" onerror="this.onerror=null;this.src='{% static 'images/projects/img/project-placeholder.svg' %}';">
             {% endif %}
             {% elif project.image %}
-            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" onerror="this.onerror=null;this.src='{% static 'images/projects/img/project-placeholder.svg' %}';">
             {% endif %}
         </div>
         <div class="detail-info">

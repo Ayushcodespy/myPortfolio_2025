@@ -1,0 +1,51 @@
+[
+  {
+    "title": "Python Bootcamp 2025",
+    "issuer": "Code With Harry",
+    "issued_date": "November 2025",
+    "drive_link": "certificates/Python_from_Scratch_Certificate.pdf",
+    "order": 1
+  },
+  {
+    "title": "Data Science and AI",
+    "issuer": "Code With Harry",
+    "issued_date": "October 2025",
+    "drive_link": "certificates/Data_Science_CWH.pdf",
+    "order": 2
+  },
+  {
+    "title": "Junior Software Developer",
+    "issuer": "Skill India",
+    "issued_date": "November 2024",
+    "drive_link": "certificates/Junior_Software_Developer_By_Skill_India.jpg",
+    "order": 3
+  },
+  {
+    "title": "A Novel Electromagnetic Pulse Repeater Design",
+    "issuer": "IC-ASTSDGs",
+    "issued_date": "March 2024",
+    "drive_link": "certificates/Electromagnetic_Pulse_Repeater.pdf",
+    "order": 4
+  },
+  {
+    "title": "Data Science & Analytics",
+    "issuer": "HP Foundation",
+    "issued_date": "October 2024",
+    "drive_link": "certificates/Data_Analytics_by_HP.pdf",
+    "order": 5
+  },
+  {
+    "title": "Code Cubicle Hackathon",
+    "issuer": "Geek Room",
+    "issued_date": "September 2024",
+    "drive_link": "certificates/CubicCode.pdf",
+    "order": 6
+  },
+  {
+    "title": "ThrillX 1.0 Hackathon",
+    "issuer": "AKS University",
+    "issued_date": "September 2024",
+    "drive_link": "certificates/Thrill-X_By_AKS.pdf",
+    "order": 7
+  }
+]

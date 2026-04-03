@@ -1,5 +1,9 @@
 import json
+import logging
 import time
+from copy import deepcopy
+from functools import lru_cache
+from pathlib import Path
 
 from django.conf import settings
 from django.core.mail import EmailMessage, EmailMultiAlternatives
@@ -18,231 +22,111 @@ except Exception:
 from .models import Certificate, Education, Project
 from .razorpay_config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
 
-HARD_CODED_PROJECT_ASSETS = {
-    "arya-z-tech": {
-        "image_path": "/static/images/projects/img/arya-z-tech.png",
-        "source_code_url": "/static/source_code/arya-z-tech.zip",
-    },
-    "med-store-plus": {
-        "image_path": "/static/images/projects/img/medstoreplus.png",
-        "source_code_url": "/static/source_code/med-store-plus.zip",
-    },
-    "old-portfolio": {
-        "image_path": "/static/images/projects/img/portfolio.png",
-        "source_code_url": "/static/source_code/portfolio01.zip",
-    },
-    "new-portfolio": {
-        "image_path": "/static/images/projects/img/new-portfolio.png",
-        "source_code_url": "/static/source_code/myPortfolio_2025.zip",
-    },
-    "school-management-system": {
-        "image_path": "/static/images/projects/img/school.png",
-        "source_code_url": "",
-    },
-    "agro-trade-portal": {
-        "image_path": "/static/images/projects/img/agrotrade.png",
-        "source_code_url": "/static/source_code/agro-trade-portal.zip",
-    },
-}
+FALLBACK_DATA_DIR = Path(__file__).resolve().parent / "fallback_data"
+logger = logging.getLogger(__name__)
+_fallback_mtimes = {}
 
-FALLBACK_EDUCATION = [
-    {
-        "title": "Primary Schooling",
-        "institution": "Holy Child Convent High School",
-        "date_range": "UKG - Class 5 (Till 2015)",
-        "description": (
-            "Started early education from Holy Child Convent High School from UKG to Class 2. "
-            "Completed Class 3 from Rastra Pita Mahatma Gandhi Bal Vidyalaya. "
-            "Then attended Class 4 and 5 at a Government School in my village (Madhya Pradesh)."
-        ),
-    },
-    {
-        "title": "Schooling (Class 6th to 9th)",
-        "institution": "Jawahar Navodaya Vidyalaya",
-        "date_range": "2015 - 2019",
-        "description": "Completed foundational education, focusing on core subjects and overall development.",
-    },
-    {
-        "title": "Class 10th (CBSE)",
-        "institution": "Jawahar Navodaya Vidyalaya",
-        "date_range": "2020",
-        "description": (
-            "Passed Class 10th with a strong academic record and participation in co-curricular activities."
-        ),
-    },
-    {
-        "title": "Class 12th (PCM + Computer Science)",
-        "institution": "Jawahar Navodaya Vidyalaya",
-        "date_range": "2022",
-        "description": (
-            "Completed Higher Secondary Education with major subjects Physics, Chemistry, Mathematics, "
-            "and Computer Science."
-        ),
-    },
-    {
-        "title": "B.Tech in Computer Science & Engineering",
-        "institution": "AKS University",
-        "date_range": "2022 - 2026",
-        "description": (
-            "Currently pursuing undergraduate degree, focusing on software engineering, data structures, "
-            "and emerging technologies."
-        ),
-    },
-]
 
-FALLBACK_CERTIFICATES = [
-    {
-        "title": "Python Bootcamp 2025",
-        "issuer": "Code With Harry",
-        "issued_date": "November 2025",
-        "drive_link": "certificates/Python_from_Scratch_Certificate.pdf",
-    },
-    {
-        "title": "Data Science and AI",
-        "issuer": "Code With Harry",
-        "issued_date": "October 2025",
-        "drive_link": "certificates/Data_Science_CWH.pdf",
-    },
-    {
-        "title": "Junior Software Developer",
-        "issuer": "Skill India",
-        "issued_date": "November 2024",
-        "drive_link": "certificates/Junior_Software_Developer_By_Skill_India.jpg",
-    },
-    {
-        "title": "A Novel Electromagnetic Pulse Repeater Design",
-        "issuer": "IC-ASTSDGs",
-        "issued_date": "March 2024",
-        "drive_link": "certificates/Electromagnetic_Pulse_Repeater.pdf",
-    },
-    {
-        "title": "Data Science & Analytics",
-        "issuer": "HP Foundation",
-        "issued_date": "October 2024",
-        "drive_link": "certificates/Data_Analytics_by_HP.pdf",
-    },
-    {
-        "title": "Code Cubicle Hackathon",
-        "issuer": "Geek Room",
-        "issued_date": "September 2024",
-        "drive_link": "certificates/CubicCode.pdf",
-    },
-    {
-        "title": "ThrillX 1.0 Hackathon",
-        "issuer": "AKS University",
-        "issued_date": "September 2024",
-        "drive_link": "certificates/Thrill-X_By_AKS.pdf",
-    },
-]
+def _read_fallback_json(filename):
+    file_path = FALLBACK_DATA_DIR / filename
+    if settings.DEBUG:
+        current_mtime = file_path.stat().st_mtime
+        previous_mtime = _fallback_mtimes.get(filename)
+        if previous_mtime is None:
+            logger.info("Loaded fallback data file: %s", file_path.name)
+        elif previous_mtime != current_mtime:
+            logger.info("Detected change in fallback data file: %s", file_path.name)
+        _fallback_mtimes[filename] = current_mtime
+    with file_path.open(encoding="utf-8") as file_obj:
+        return json.load(file_obj)
 
-FALLBACK_PROJECTS = [
-    {
-        "slug": "arya-z-tech",
-        "title": "ARYA-Z-TECH",
-        "short_description": (
-            "A business website offering website development and deployment services, built using "
-            "HTML, CSS, JS, Flask, and hosted on Vercel."
-        ),
-        "long_description": (
-            "ARYA-Z-TECH is a clean business website built to showcase services, highlight credibility, "
-            "and convert visitors into leads. It focuses on performance, strong CTAs, and a professional look."
-        ),
-        "tech_stack": ["HTML", "CSS", "JavaScript", "Flask"],
-        "highlights": ["Responsive layout", "Service-focused landing pages", "Deployed on Vercel"],
-        "image_path": "images/projects/img/arya-z-tech.png",
-        "demo_url": "https://aryaztech.vercel.app/",
-        "source_code_price_inr": 999,   #1499
-        "source_code_zip": "source_code/zip_files/arya-z-tech.zip",
-        "source_code_url": "/static/source_code/arya-z-tech.zip",
-        "is_featured": True,
-    },
-    {
-        "slug": "med-store-plus",
-        "title": "Med Store Plus",
-        "short_description": (
-            "An e-commerce platform for selling medical supplies, built using "
-            "React, Node.js, and MongoDB."
-        ),
-        "long_description": (
-            "Med Store Plus is a modern Medical Store Management System for a shop which automates the task of managing inventory, sales, and customer information. "
-            "It features a user-friendly interface, secure payment processing, and comprehensive product management."
-        ),
-        "tech_stack": ["HTML", "CSS", "JavaScript", "Flask", "MySQL"],
-        "highlights": ["Responsive design", "User-friendly interface", "Secure payment processing"],
-        "image_path": "images/projects/img/med-store-plus.png",
-        "demo_url": "https://medstoreplus.vercel.app/",
-        "source_code_price_inr": 399,   #1499
-        "source_code_zip": "source_code/zip_files/med-store-plus.zip",
-        "source_code_url": "/static/source_code/med-store-plus.zip",
-        "is_featured": True,
-    },
-    {
-        "slug": "old-portfolio",
-        "title": "Old Portfolio",
-        "short_description": (
-            "This was my earlier portfolio showcasing my journey, skills, and work using simple HTML, "
-            "CSS, and Bootstrap layout."
-        ),
-        "long_description": (
-            "This portfolio was my first polished personal site. It focuses on clarity, quick navigation, "
-            "and a simple layout to highlight projects, skills, and contact details."
-        ),
-        "tech_stack": ["HTML", "CSS", "Bootstrap"],
-        "highlights": ["Simple and clean layout", "Fast load times", "Mobile-friendly"],
-        "image_path": "images/projects/img/portfolio.png",
-        "demo_url": "https://ayushpatelportfolio.netlify.app/",
-        "source_code_price_inr": 1,
-        "source_code_zip": "source_code/zip_files/portfolio01.zip",
-        "source_code_url": "/static/source_code/portfolio01.zip",
-        "is_featured": True,
-    },
-    {
-        "slug": "school-management-system",
-        "title": "School Management System",
-        "short_description": (
-            "A complete Django-based school system to manage students, teachers, attendance, admissions, "
-            "fees, and more."
-        ),
-        "long_description": (
-            "A full-featured school management system that handles admissions, attendance, fees, and "
-            "reporting. It includes admin dashboards, role-based access, and data exports."
-        ),
-        "tech_stack": ["Django", "Python", "SQLite", "HTML", "CSS"],
-        "highlights": ["Admin dashboards", "Attendance and fee tracking", "Role-based access"],
-        "image_path": "images/projects/img/school.png",
-        "demo_url": "https://example.com",
-        "source_code_price_inr": 0,
-        "source_code_zip": "",
-        "source_code_url": "",
-        "is_featured": True,
-    },
-    {
-        "slug": "new-portfolio",
-        "title": "New Portfolio",
-        "short_description": (
-            "This portfolio you're viewing now, crafted with advanced UI, modern effects, Swiper slider, "
-            "and highly optimized sections."
-        ),
-        "long_description": (
-            "My latest portfolio with modern UI effects, animated sections, sliders, and a clean layout. "
-            "It is designed to be bold, readable, and easy to navigate."
-        ),
-        "tech_stack": ["Django", "HTML", "CSS", "JavaScript", "Swiper"],
-        "highlights": ["Modern UI effects", "Responsive sections", "Optimized performance"],
-        "image_path": "images/projects/img/new-portfolio.png",
-        "demo_url": "https://ayushcodespy.vercel.app",
-        "source_code_price_inr": 599,
-        "source_code_zip": "source_code/zip_files/myPortfolio_2025.zip",
-        "source_code_url": "/static/source_code/myPortfolio_2025.zip",
-        "is_featured": True,
-    },
-]
+
+@lru_cache(maxsize=None)
+def _load_fallback_json_cached(filename):
+    return _read_fallback_json(filename)
+
+
+def _load_fallback_json(filename):
+    if settings.DEBUG:
+        return _read_fallback_json(filename)
+    return _load_fallback_json_cached(filename)
+
+
+def _get_fallback_education():
+    return deepcopy(_load_fallback_json("education.json"))
+
+
+def _get_fallback_certificates():
+    return deepcopy(_load_fallback_json("certificates.json"))
+
+
+def _get_fallback_projects():
+    return deepcopy(_load_fallback_json("projects.json"))
+
+
+@lru_cache(maxsize=1)
+def _get_fallback_project_map():
+    return {item.get("slug"): item for item in _load_fallback_json_cached("projects.json")}
+
+
+def _load_fallback_project_map():
+    if settings.DEBUG:
+        return {item.get("slug"): item for item in _load_fallback_json("projects.json")}
+    return _get_fallback_project_map()
+
+
+def _static_path_exists(relative_path):
+    if not relative_path:
+        return False
+    normalized_path = relative_path.lstrip("/").removeprefix("static/")
+    return (Path(settings.BASE_DIR) / "static" / normalized_path).exists()
+
+
+def _resolve_project_image_path(slug, image_path):
+    if image_path and image_path.startswith(("http://", "https://")):
+        return image_path
+
+    if image_path and image_path.startswith("/static/"):
+        if _static_path_exists(image_path):
+            return image_path
+
+    if image_path and not image_path.startswith("/"):
+        if _static_path_exists(image_path):
+            return image_path
+
+    slug = (slug or "").strip()
+    slug_no_dash = slug.replace("-", "")
+    candidate_paths = [
+        f"images/projects/img/{slug}.png",
+        f"images/projects/img/{slug}.jpg",
+        f"images/projects/img/{slug}.jpeg",
+        f"images/projects/img/{slug_no_dash}.png",
+        f"images/projects/img/{slug_no_dash}.jpg",
+        f"images/projects/img/{slug_no_dash}.jpeg",
+    ]
+
+    if image_path:
+        candidate_paths.insert(0, image_path)
+
+    for candidate in candidate_paths:
+        if candidate.startswith("/"):
+            if _static_path_exists(candidate):
+                return candidate
+        elif _static_path_exists(candidate):
+            return candidate
+
+    logger.warning("No valid image found for project slug '%s'. Using placeholder.", slug)
+    return "images/projects/img/project-placeholder.svg"
 
 
 def _apply_project_assets(project):
     slug = project.get("slug", "") if isinstance(project, dict) else getattr(project, "slug", "")
-    mapped = HARD_CODED_PROJECT_ASSETS.get(slug)
+    mapped = _load_fallback_project_map().get(slug)
     if not mapped:
+        if isinstance(project, dict):
+            project["image_path"] = _resolve_project_image_path(slug, project.get("image_path", ""))
+        else:
+            project.image_path = _resolve_project_image_path(slug, getattr(project, "image_path", ""))
         return project
 
     if isinstance(project, dict):
@@ -250,47 +134,105 @@ def _apply_project_assets(project):
             project["image_path"] = mapped.get("image_path", "")
         if not project.get("source_code_url"):
             project["source_code_url"] = mapped.get("source_code_url", "")
+        if not project.get("source_code_zip"):
+            project["source_code_zip"] = mapped.get("source_code_zip", "")
+        project["image_path"] = _resolve_project_image_path(slug, project.get("image_path", ""))
     else:
         if not getattr(project, "image_path", ""):
             project.image_path = mapped.get("image_path", "")
         if not getattr(project, "source_code_url", ""):
             project.source_code_url = mapped.get("source_code_url", "")
+        if not getattr(project, "source_code_zip", ""):
+            project.source_code_zip = mapped.get("source_code_zip", "")
+        project.image_path = _resolve_project_image_path(slug, getattr(project, "image_path", ""))
 
     return project
+
+
+def _get_item_value(item, field_name, default=""):
+    if isinstance(item, dict):
+        return item.get(field_name, default)
+    return getattr(item, field_name, default)
+
+
+def _merge_items(primary_items, fallback_items, key_builder):
+    merged = []
+    seen_keys = set()
+
+    for item in primary_items + fallback_items:
+        item_key = key_builder(item)
+        if item_key in seen_keys:
+            continue
+        seen_keys.add(item_key)
+        merged.append(item)
+
+    return sorted(
+        merged,
+        key=lambda item: (
+            int(_get_item_value(item, "order", 0) or 0),
+            str(_get_item_value(item, "title", _get_item_value(item, "slug", ""))),
+        ),
+    )
 
 
 def _get_education_items():
     try:
         items = list(Education.objects.all())
-        return items or FALLBACK_EDUCATION
+        fallback_items = _get_fallback_education()
+        return _merge_items(
+            items,
+            fallback_items,
+            lambda item: (
+                _get_item_value(item, "title"),
+                _get_item_value(item, "institution"),
+                _get_item_value(item, "date_range"),
+            ),
+        )
     except Exception:
-        return FALLBACK_EDUCATION
+        return _get_fallback_education()
 
 
 def _get_certificates():
     try:
         items = list(Certificate.objects.all())
-        return items or FALLBACK_CERTIFICATES
+        fallback_items = _get_fallback_certificates()
+        return _merge_items(
+            items,
+            fallback_items,
+            lambda item: (
+                _get_item_value(item, "title"),
+                _get_item_value(item, "issuer"),
+                _get_item_value(item, "issued_date"),
+            ),
+        )
     except Exception:
-        return FALLBACK_CERTIFICATES
+        return _get_fallback_certificates()
 
 
 def _get_projects():
     try:
         items = list(Project.objects.all())
-        source = items or FALLBACK_PROJECTS
+        source = _merge_items(
+            items,
+            _get_fallback_projects(),
+            lambda item: _get_item_value(item, "slug"),
+        )
         return [_apply_project_assets(item) for item in source]
     except Exception:
-        return [_apply_project_assets(item) for item in FALLBACK_PROJECTS]
+        return [_apply_project_assets(item) for item in _get_fallback_projects()]
 
 
 def _get_featured_projects():
     try:
         items = list(Project.objects.filter(is_featured=True))
-        source = items or [item for item in FALLBACK_PROJECTS if item.get("is_featured")]
+        source = _merge_items(
+            items,
+            [item for item in _get_fallback_projects() if item.get("is_featured")],
+            lambda item: _get_item_value(item, "slug"),
+        )
         return [_apply_project_assets(item) for item in source]
     except Exception:
-        source = [item for item in FALLBACK_PROJECTS if item.get("is_featured")]
+        source = [item for item in _get_fallback_projects() if item.get("is_featured")]
         return [_apply_project_assets(item) for item in source]
 
 
@@ -298,12 +240,12 @@ def _find_project(slug):
     try:
         return _apply_project_assets(Project.objects.get(slug=slug))
     except Project.DoesNotExist:
-        for item in FALLBACK_PROJECTS:
+        for item in _get_fallback_projects():
             if item.get("slug") == slug:
                 return _apply_project_assets(item)
         return None
     except Exception:
-        for item in FALLBACK_PROJECTS:
+        for item in _get_fallback_projects():
             if item.get("slug") == slug:
                 return _apply_project_assets(item)
         return None
