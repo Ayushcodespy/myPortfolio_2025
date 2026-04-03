@@ -37,7 +37,7 @@
     "tech_stack": ["HTML", "CSS", "JavaScript", "Flask", "MySQL"],
     "highlights": ["Responsive design", "Clean inventory flow", "Billing-ready dashboard"],
     "image_path": "images/projects/img/med-store-plus.png",
-    "demo_url": "https://medstoreplus.vercel.app/",
+    "demo_url": "https://med-store-plus.vercel.app/",
     "source_code_price_inr": 399,
     "source_code_zip": "source_code/zip_files/med-store-plus.zip",
     "source_code_url": "/static/source_code/med-store-plus.zip",
