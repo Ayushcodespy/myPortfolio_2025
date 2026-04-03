@@ -23,6 +23,10 @@ HARD_CODED_PROJECT_ASSETS = {
         "image_path": "/static/images/projects/img/arya-z-tech.png",
         "source_code_url": "/static/source_code/arya-z-tech.zip",
     },
+    "med-store-plus": {
+        "image_path": "/static/images/projects/img/medstoreplus.png",
+        "source_code_url": "/static/source_code/med-store-plus.zip",
+    },
     "old-portfolio": {
         "image_path": "/static/images/projects/img/portfolio.png",
         "source_code_url": "/static/source_code/portfolio01.zip",
@@ -147,9 +151,29 @@ FALLBACK_PROJECTS = [
         "highlights": ["Responsive layout", "Service-focused landing pages", "Deployed on Vercel"],
         "image_path": "images/projects/img/arya-z-tech.png",
         "demo_url": "https://aryaztech.vercel.app/",
-        "source_code_price_inr": 1,   #1499
+        "source_code_price_inr": 999,   #1499
         "source_code_zip": "source_code/zip_files/arya-z-tech.zip",
         "source_code_url": "/static/source_code/arya-z-tech.zip",
+        "is_featured": True,
+    },
+    {
+        "slug": "med-store-plus",
+        "title": "Med Store Plus",
+        "short_description": (
+            "An e-commerce platform for selling medical supplies, built using "
+            "React, Node.js, and MongoDB."
+        ),
+        "long_description": (
+            "Med Store Plus is a modern Medical Store Management System for a shop which automates the task of managing inventory, sales, and customer information. "
+            "It features a user-friendly interface, secure payment processing, and comprehensive product management."
+        ),
+        "tech_stack": ["HTML", "CSS", "JavaScript", "Flask", "MySQL"],
+        "highlights": ["Responsive design", "User-friendly interface", "Secure payment processing"],
+        "image_path": "images/projects/img/med-store-plus.png",
+        "demo_url": "https://medstoreplus.vercel.app/",
+        "source_code_price_inr": 399,   #1499
+        "source_code_zip": "source_code/zip_files/med-store-plus.zip",
+        "source_code_url": "/static/source_code/med-store-plus.zip",
         "is_featured": True,
     },
     {
@@ -207,7 +231,7 @@ FALLBACK_PROJECTS = [
         "highlights": ["Modern UI effects", "Responsive sections", "Optimized performance"],
         "image_path": "images/projects/img/new-portfolio.png",
         "demo_url": "https://ayushcodespy.vercel.app",
-        "source_code_price_inr": 1,
+        "source_code_price_inr": 599,
         "source_code_zip": "source_code/zip_files/myPortfolio_2025.zip",
         "source_code_url": "/static/source_code/myPortfolio_2025.zip",
         "is_featured": True,
